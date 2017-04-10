@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#dddddd</color>
+    <color name="colorPrimaryDark">#c8c8c8</color>
+    <color name="colorAccent">#cd325c</color>
+    <color name="tabSelected">#80cd325c</color>
+    <color name="buttonLogin">#d94a6f</color>
+    <color name="buttonLoginPressed">#80d94a6f</color>
+    <color name="btnCadastro">#53a2ab</color>
+    <color name="btnCadastroPressed">#8053a2ab</color>
+    <color name="buttonFb">#3a559f</color>
+    <color name="buttonFbPressed">#803a559f</color>
+    <color name="myblack">#030303</color>
+    <color name="titlecolor">#313131</color>
+    <color name="gray">#a8a8a8</color>
+    <color name="check">#8db22f</color>
+</resources>
