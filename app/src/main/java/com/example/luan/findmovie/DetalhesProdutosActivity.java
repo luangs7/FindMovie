@@ -22,6 +22,7 @@ import com.example.luan.findmovie.model.Filme;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class DetalhesProdutosActivity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class DetalhesProdutosActivity extends AppCompatActivity {
     private TextView rating;
     private TextView descricao;
     private Button btnTrailer;
-    private Button btnFav;
+    private Button btnFav, btnDesfav;
 
     Filme filmeSelect;
     Realm realm;
@@ -62,6 +63,7 @@ public class DetalhesProdutosActivity extends AppCompatActivity {
         this.toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         this.btnTrailer = (Button) findViewById(R.id.btnTrailer);
         this.btnFav = (Button) findViewById(R.id.btnFav);
+        this.btnDesfav = (Button) findViewById(R.id.btnDesfav);
 
 
         if (toolbar != null) {
@@ -115,48 +117,55 @@ public class DetalhesProdutosActivity extends AppCompatActivity {
         });
 
         //vejo se esse filme já está favoritado ou não!
-        // e em cada caso, eu trato de maneira diferente o click do botão
 
-        Filme filmeRealm = realm.where(Filme.class).equalTo("id", filmeSelect.getId()).findFirst();
+        final RealmResults <Filme> result = realm.where(Filme.class).equalTo("id", filmeSelect.getId()).findAll();
 
-        if (filmeRealm != null) {
+        if (result.size() > 0) {
             // Exists
-            btnFav.setText("DESFAVORITAR");
-            btnFav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            try {
-                realm.beginTransaction();
-                realm.deleteFromRealm(filmeSelect);
-                realm.commitTransaction();
-                Toast.makeText(DetalhesProdutosActivity.this, "Item foi tirado de sua lista de favoritos!", Toast.LENGTH_SHORT).show();
-            }catch (Exception e){
-                Toast.makeText(DetalhesProdutosActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-            }
-        });
+            btnDesfav.setVisibility(View.VISIBLE);
+            btnFav.setVisibility(View.GONE);
         } else {
             // Not exist
-            btnFav.setText("FAVORITAR");
+            btnDesfav.setVisibility(View.GONE);
+            btnFav.setVisibility(View.VISIBLE);
 
-            btnFav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            try {
-                realm.beginTransaction();
-                realm.copyToRealm(filmeSelect);
-                realm.commitTransaction();
-                Toast.makeText(DetalhesProdutosActivity.this, "Favoritado com sucesso!", Toast.LENGTH_SHORT).show();
-            }catch (Exception e){
-                Toast.makeText(DetalhesProdutosActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-            }
-        });   
         }
 
+        //trabalho com o Realm para salvar ou retirar o filme da base
 
-       
+        btnDesfav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    realm.beginTransaction();
+                    result.deleteAllFromRealm();
+                    realm.commitTransaction();
+                    btnDesfav.setVisibility(View.GONE);
+                    btnFav.setVisibility(View.VISIBLE);
+                    Toast.makeText(DetalhesProdutosActivity.this, "Item foi tirado de sua lista de favoritos!", Toast.LENGTH_SHORT).show();
 
+                }catch (Exception e){
+                    Toast.makeText(DetalhesProdutosActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        btnFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    realm.beginTransaction();
+                    realm.copyToRealm(filmeSelect);
+                    realm.commitTransaction();
+                    btnDesfav.setVisibility(View.VISIBLE);
+                    btnFav.setVisibility(View.GONE);
+                    Toast.makeText(DetalhesProdutosActivity.this, "Favoritado com sucesso!", Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    Toast.makeText(DetalhesProdutosActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 //        chama o metodo que seta os dados na tela
         setData(filmeSelect);

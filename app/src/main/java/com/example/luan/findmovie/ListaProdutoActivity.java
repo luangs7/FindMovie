@@ -85,7 +85,7 @@ public class ListaProdutoActivity extends AppCompatActivity {
                     break;
 
                 case "favoritos":
-                    tipoLista = "view";
+                    tipoLista = "favoritos";
                     toolbar.setTitle("Meus favoritos");
                     getfavoritos();
                     break;

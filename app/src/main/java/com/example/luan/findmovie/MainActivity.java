@@ -129,13 +129,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void hideKeybord() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
+
 
     @Override
     public void onStart() {
@@ -263,8 +257,10 @@ public class MainActivity extends AppCompatActivity {
             });
             adapterfavoritos.replace(favoritos);
             relativefavoritos.setVisibility(View.VISIBLE);
+            listfavoritos.setVisibility(View.VISIBLE);
         }else{
-             relativefavoritos.setVisibility(View.GONE);   
+             relativefavoritos.setVisibility(View.GONE);
+             listfavoritos.setVisibility(View.GONE);
         }
 
     }

@@ -225,6 +225,19 @@
                             android:elevation="3dp"
                             android:layout_marginTop="15dp" android:layout_marginLeft="5dp"/>
 
+                    <Button
+                        android:layout_weight="5"
+                        android:layout_marginBottom="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="DESFAVORITAR"
+                        android:id="@+id/btnDesfav"
+                        android:textColor="#fff"
+                        android:background="#d94a6f"
+                        android:elevation="3dp"
+                        android:visibility="gone"
+                        android:layout_marginTop="15dp" android:layout_marginLeft="5dp"/>
+
                 </LinearLayout>
 
             </LinearLayout>
