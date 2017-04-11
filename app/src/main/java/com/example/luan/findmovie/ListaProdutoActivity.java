@@ -86,8 +86,9 @@ public class ListaProdutoActivity extends AppCompatActivity {
 
                 case "favoritos":
                     tipoLista = "favoritos";
-                    toolbar.setTitle("Meus favoritos");
                     getfavoritos();
+                    toolbar.setTitle("Meus favoritos");
+
                     break;
 
                 case "curtidos":
@@ -208,9 +209,24 @@ public class ListaProdutoActivity extends AppCompatActivity {
         List<Filme> favoritos = new ArrayList<>();
         favoritos = realm.where(Filme.class).findAll();
 
-        adapter.add(favoritos);
+        adapter.replaceFavoritos(favoritos);
 
 
     }
 
+    @Override
+    protected void onResume() {
+        if(tipoLista.equalsIgnoreCase("favoritos")){
+            getfavoritos();
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+        if(tipoLista.equalsIgnoreCase("favoritos")){
+            getfavoritos();
+        }
+        super.onRestart();
+    }
 }

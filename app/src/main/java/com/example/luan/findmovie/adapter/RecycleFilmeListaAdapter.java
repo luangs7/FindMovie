@@ -155,6 +155,12 @@ public class RecycleFilmeListaAdapter extends RecyclerView.Adapter<RecycleFilmeL
         //notifyDataSetChanged();
     }
 
+    public void replaceFavoritos(List<Filme> itens){
+        this.itens.clear();
+        this.itens.addAll(itens);
+        notifyDataSetChanged();
+    }
+
     public void clear(){
         this.itens.clear();
         //notifyDataSetChanged();
